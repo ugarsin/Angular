@@ -1,0 +1,34 @@
+<div class="mt-20 flex justify-center w-full items-center">
+    <form #BookEditingForm="ngForm" (ngSubmit)="save()" class="w-2/3 border-1 p-2 flex flex-col items-start rounded shadow-md">
+        <label>Title</label>
+        <input [(ngModel)]="BookEdit.title" name="BookEdit.title" class="border-2 shadow border-blue-500 rounded w-full" placeholder="Book Title">
+        
+        <label>Authors</label>
+        <select multiple class="border-2 shadow border-blue-500 rounded w-full">
+            @for (author of bookService.AllAuthors(); track author.id) {
+                @if (bookService.SelectedAuthorIds().includes(author.id))
+                {
+                    <option
+                        [value]="author.id"
+                        [selected]="true"
+                    >
+                    {{author.name}}
+                    </option>
+                }
+                @else
+                {
+                    <option
+                        [value]="author.id"
+                        [selected]="false"
+                    >
+                    {{author.name}}
+                    </option>
+                }
+            }
+        </select>
+        <div class="flex flex-row-reverse p-1 gap-1 w-full items-end">
+            <button (click)="redirectToPage()" type="button" class="btn btn-info">Cancel</button>
+            <button class="btn btn-primary" type="submit">Save</button>
+        </div>
+    </form>
+</div>
