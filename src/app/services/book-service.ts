@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Author, Book, BookWithAuthors } from '../models/books';
 import { ToastService } from './toast-service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,13 +24,8 @@ export class BookService {
     });
   }
 
-  getBookWithAuthorsById(id: number) {
-    this.http.get<BookWithAuthors>(`http://localhost:5124/api/books/${id}`).subscribe({
-      next: response => {
-        this.BookForEditing.set(response);
-      },
-      error: error => console.log(error.error)
-    });
+  getBookWithAuthorsById(id: number): Observable<BookWithAuthors> {
+    return this.http.get<BookWithAuthors>(`http://localhost:5124/api/books/${id}`);
   }
 
   getAllAuthors() {

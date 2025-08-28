@@ -1,7 +1,7 @@
 <div class="mt-20 flex justify-center w-full items-center">
-    <form #BookEditingForm="ngForm" (ngSubmit)="save()" class="w-2/3 border-1 p-2 flex flex-col items-start rounded shadow-md">
+    <form #f="ngForm" (ngSubmit)="save()" class="w-2/3 border-1 p-2 flex flex-col items-start rounded shadow-md">
         <label>Title</label>
-        <input [(ngModel)]="BookEdit.title" name="BookEdit.title" class="border-2 shadow border-blue-500 rounded w-full" placeholder="Book Title">
+        <input [value]="BookEdit.title" id="title" name="title" class="border-2 shadow border-blue-500 rounded w-full" placeholder="Book Title">
         
         <label>Authors</label>
         <select multiple class="border-2 shadow border-blue-500 rounded w-full">

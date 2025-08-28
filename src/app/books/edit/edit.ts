@@ -1,8 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, ElementRef, inject } from '@angular/core';
 import { BookService } from '../../services/book-service';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Author, BookWithAuthors } from '../../models/books';
+import { ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-edit',
@@ -11,35 +13,42 @@ import { Author, BookWithAuthors } from '../../models/books';
   styleUrl: './edit.css'
 })
 export class EditBook {
+   @ViewChild('f') form!: NgForm;
+   @ViewChild('title') input!: ElementRef;
+
   protected bookService = inject(BookService);;
   private router = inject(Router);
-  BookEdit: BookWithAuthors = {id: 0, title: '', names: []};
+  protected BookEdit: BookWithAuthors = {id: 0, title: '', names: []};
   AllAuthors: Author[] = [];
-
-  constructor(private route: ActivatedRoute) {}
+  title: string = "";
+  protected counter: number = 0;
   
-  ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-
-    console.log(`ID=${id}`);
-    console.log(this.bookService.SelectedAuthorIds());
-
-    this.bookService.getBookWithAuthorsById(Number(id));
-    this.bookService.getAllAuthors();
-    this.bookService.getSelectedAuthorIds(Number(id));
-
-    const book = this.bookService.BookForEditing();
-
-    if (!book.id || !book) {
-      console.log('error');
-      this.redirectToPage();
-    }
-
-    this.BookEdit = book;
+  constructor(private route: ActivatedRoute) {
+    // effect(() => {
+    //   this.title = this.bookService.BookForEditing().title;
+    // });
   }
 
+  ngOnInit() {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.bookService.getBookWithAuthorsById(id).subscribe(book => {
+      this.BookEdit = book;
+      const inputTitle = document.getElementById("title")! as HTMLInputElement;
+      inputTitle.value = book.title;
+      this.bookService.getSelectedAuthorIds(id);
+      this.bookService.getAllAuthors();
+    });
+  }
+  
   save() {
-
+    //this.form.get('title')?.setValue("abcdefg");
+    // this.input.nativeElement.setValue("abc");
+    console.log("title2="+this.bookService.BookForEditing().title);
+    const test = this.bookService.BookForEditing().title;
+    this.title = test;
+    console.log("title1="+this.title);
+    // this.title = "String(this.bookService.BookForEditing().title)";
+    // this.title = "abc";
   }
 
   redirectToPage() {

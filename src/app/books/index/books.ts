@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BookService } from '../../services/book-service';
-import { Router } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-books',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './books.html',
   styleUrl: './books.css'
 })
@@ -28,6 +28,20 @@ export class Books {
   }
 
   editBook(id: number){
-    this.router.navigateByUrl(`/editbook/${id}`);
+    this.router.navigate(['editbook', id]);
+  }
+
+  bookedit(id: number){
+    console.log("xxxxxxxxxx")
+    this.router.navigate(['edit', id]);
+  }
+
+  detailsBook(id: number) {
+    this.router.navigate(['detailsbook', id]);
+  }
+
+  edit2(id: number) {
+    console.log(id)
+    this.router.navigate(['edit2', id]);
   }
 }
