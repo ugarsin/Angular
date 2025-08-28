@@ -4,7 +4,6 @@ import { Books } from './books/index/books';
 import { CreateBook } from './books/create/create';
 import { EditBook } from './books/edit/edit';
 import { DetailsBook } from './books/details/details';
-import { BookEditComponent } from './trash/edit/edit';
 
 export const routes: Routes = [
     {path: 'books', component: Books},

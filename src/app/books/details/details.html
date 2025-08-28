@@ -1,4 +1,15 @@
-<div class="h-screen m-2 mt-20 flex flex-col">
-    <label>Book Title</label>
-    <label>{{details?.title}}</label>
+<div class="w-1/2 m-10 mt-30 flex flex-col">
+    <label class="text-2xl font-bold">Book Title</label>
+    <label id="title" class="text-2xl font-extrabold italic text-red-800">{{bookService.bookWithAuthors()?.title}}</label>
+    <div class="flex flex-col justify-end items-end">
+        <ul class="list-disc pl-5">
+            @for (author of bookService.bookWithAuthors()?.names; track $index) {
+                <li>{{author}}</li>
+            }
+        </ul>
+    </div>
+    <div class="mt-5 w-full gap-2 flex flex-row-reverse">
+        <a routerLink="/books" class="btn btn-secondary">Cancel</a>
+        <button (click)="editBook()" class="btn btn-info">Edit</button>
+    </div>
 </div>

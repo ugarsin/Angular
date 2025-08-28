@@ -14,7 +14,8 @@ export class BookService {
   BookForEditing = signal<BookWithAuthors | {id: 0, title: '', names: []}>({id: 0, title: '', names: []});
   AllAuthors = signal<Author[] | []>([]);
   SelectedAuthorIds = signal<number[]>([]);
-
+  bookWithAuthors = signal<BookWithAuthors|null>(null);
+  
   getAllBooksWithAuthors() {
     this.http.get<BookWithAuthors[]>('http://localhost:5124/api/books').subscribe({
       next: response => {

@@ -31,17 +31,7 @@ export class Books {
     this.router.navigate(['editbook', id]);
   }
 
-  bookedit(id: number){
-    console.log("xxxxxxxxxx")
-    this.router.navigate(['edit', id]);
-  }
-
   detailsBook(id: number) {
     this.router.navigate(['detailsbook', id]);
-  }
-
-  edit2(id: number) {
-    console.log(id)
-    this.router.navigate(['edit2', id]);
   }
 }
